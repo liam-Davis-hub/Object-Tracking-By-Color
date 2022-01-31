@@ -5,6 +5,9 @@ import core.DImage;
 
 public class BasicColorFilter implements PixelFilter {
 
+    /*
+    GIT Commit Test
+     */
 
     @Override
     public DImage processImage(DImage img) {
