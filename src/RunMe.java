@@ -1,4 +1,3 @@
-import Filters.ColorMasking;
 import core.DisplayWindow;
 
 public class RunMe {
@@ -7,7 +6,8 @@ public class RunMe {
         //DisplayWindow.showFor("images/6.jpg", 800, 600);
 
         // --== Determine your input interactively with menus ==--
-//        DisplayWindow.getInputInteractively(800,600);
+        DisplayWindow.getInputInteractively(800,600);
+        System.out.println();
 
 
     }
