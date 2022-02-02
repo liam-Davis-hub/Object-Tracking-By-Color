@@ -2,6 +2,7 @@ package core;
 
 import processing.core.PImage;
 // TODO: comment this class
+// comment for git to work
 
 public class DImage {
     private PImage img;

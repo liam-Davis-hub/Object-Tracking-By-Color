@@ -13,7 +13,6 @@ public class ColorMasking implements PixelFilter {
         gVal = 0;
         bVal = 0;
         threshold = 100;
-
     }
 
 
@@ -37,10 +36,7 @@ public class ColorMasking implements PixelFilter {
                     red[i][j] = 0;
                     blue[i][j] = 0;
                     green[i][j] = 0;
-
                 }
-
-
             }
 
         }
@@ -51,6 +47,10 @@ public class ColorMasking implements PixelFilter {
 
     }
 
+
+    /*
+    Navin
+     */
     public double calculateDistance(int r, int g, int b){
         double distance = Math.sqrt( ((r-rVal)*(r-rVal)) + ((g-gVal)*(g-gVal))+ ((b-bVal)*(b-bVal)));
         return distance;
