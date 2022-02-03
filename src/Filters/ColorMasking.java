@@ -51,7 +51,6 @@ public class ColorMasking implements PixelFilter {
     public double calculateDistance(int r, int g, int b){
         double distance = Math.sqrt( ((r-rVal)*(r-rVal)) + ((g-gVal)*(g-gVal))+ ((b-bVal)*(b-bVal)));
         return distance;
-
     }
 
     public Point calculateCenter(DImage image){
@@ -76,6 +75,11 @@ public class ColorMasking implements PixelFilter {
             }
 
         }
+
+        if (r == 0 || jx == 0) {
+            return new Point(-1, -1);
+        }
+
         rowCenter = rowTotal/ (r);
         colCenter = colTotal/(jx);
 
