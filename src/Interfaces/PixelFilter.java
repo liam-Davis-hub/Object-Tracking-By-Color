@@ -2,6 +2,8 @@ package Interfaces;
 
 import core.DImage;
 
+import java.io.IOException;
+
 public interface PixelFilter {
     /***
      * apply a filter to an input image and return the filtered image as output

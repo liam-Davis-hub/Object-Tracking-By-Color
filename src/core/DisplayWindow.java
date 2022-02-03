@@ -355,4 +355,3 @@ public class DisplayWindow extends PApplet {
         PApplet.main("core.DisplayWindow", new String[]{"dimensions:" + width + "x" + height});
     }
 }
-
