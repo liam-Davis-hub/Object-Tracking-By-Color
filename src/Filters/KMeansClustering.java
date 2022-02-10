@@ -55,7 +55,7 @@ public class KMeansClustering implements PixelFilter, Drawable {
             Point originalCluster3 = cluster3Center;
 
 
-            // recalculate clusters
+            // recalculate cluster centers
             reCalculateClusters();
 
             // save recalculated centers and differences
@@ -67,7 +67,7 @@ public class KMeansClustering implements PixelFilter, Drawable {
             double cluster2Movement = originalCluster2.distance(nextCluster2);
             double cluster3Movement = originalCluster3.distance(nextCluster3);
 
-            // evaluate done
+            // evaluate if done
             if (cluster1Movement == 0 && cluster2Movement == 0 && cluster3Movement == 0) done = true;
 
             System.out.println(cluster1Center + ", " + cluster2Center + ", " + cluster3Center);
