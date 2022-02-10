@@ -12,7 +12,6 @@ public class KMeansClustering implements PixelFilter, Drawable {
     private ArrayList<Point> allObjectPixels;
     private ArrayList<Point> cluster1, cluster2, cluster3;
     private boolean done;
-    
     private Point cluster1Center, cluster2Center, cluster3Center;
 
     public KMeansClustering() {
