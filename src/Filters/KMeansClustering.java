@@ -54,7 +54,6 @@ public class KMeansClustering implements PixelFilter, Drawable {
             Point originalCluster2 = cluster2Center;
             Point originalCluster3 = cluster3Center;
 
-
             // recalculate cluster centers
             reCalculateClusters();
 
