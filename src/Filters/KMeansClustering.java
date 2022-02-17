@@ -6,9 +6,10 @@ import core.DImage;
 import processing.core.PApplet;
 
 import java.awt.*;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class KMeansClustering implements PixelFilter, Drawable {
+public class KMeansClustering extends PApplet implements PixelFilter, Drawable {
     private ArrayList<Point> allObjectPixels;
     private ArrayList<Point> cluster1, cluster2, cluster3;
     private boolean done;
@@ -30,16 +31,18 @@ public class KMeansClustering implements PixelFilter, Drawable {
 
     @Override
     public DImage processImage(DImage img) {
-        createClusters(allObjectPixels);
+        createClusters();
         return img;
     }
 
-    private void createClusters(ArrayList<Point> objectPixels) {
+    private void createClusters() {
         do {
             // clear data
             cluster1.clear();
             cluster2.clear();
             cluster3.clear();
+
+            allObjectPixels = ColorMasking.objectPixels;
 
             // initialize random points
             cluster1Center = allObjectPixels.get((int)(Math.random() * allObjectPixels.size()));
@@ -47,7 +50,7 @@ public class KMeansClustering implements PixelFilter, Drawable {
             cluster3Center = allObjectPixels.get((int)(Math.random() * allObjectPixels.size()));
 
             // assign clusters
-            assignClusters(objectPixels);
+            assignClusters();
 
             // save centers
             Point originalCluster1 = cluster1Center;
@@ -119,9 +122,9 @@ public class KMeansClustering implements PixelFilter, Drawable {
     }
 
 
-    private void assignClusters(ArrayList<Point> objectPixels) {
+    private void assignClusters() {
         // iterate over all points and assign to center
-        for (Point p : objectPixels) {
+        for (Point p : allObjectPixels) {
             double distanceCluster1 = p.distance(cluster1Center);
             double distanceCluster2 = p.distance(cluster2Center);
             double distanceCluster3 = p.distance(cluster3Center);
@@ -134,8 +137,30 @@ public class KMeansClustering implements PixelFilter, Drawable {
 
     @Override
     public void drawOverlay(PApplet window, DImage original, DImage filtered) {
-        window.ellipse(cluster1Center.x, cluster1Center.y, 5, 5);
-        window.ellipse(cluster2Center.x, cluster2Center.y, 5, 5);
-        window.ellipse(cluster3Center.x, cluster3Center.y, 5, 5);
+        fill(255);
+        window.ellipse(cluster1Center.x, cluster1Center.y, 25, 25);
+        window.ellipse(cluster2Center.x, cluster2Center.y, 25, 25);
+        window.ellipse(cluster3Center.x, cluster3Center.y, 25, 25);
+    }
+
+    public void makeCSV(ArrayList<Point> centers){
+        try (FileWriter f = new FileWriter("new.csv")) {
+            f.append("x");
+            f.append(",");
+            f.append("y");
+            f.append("\n");
+            for (Point p:centers){
+                String x = Double.toString(p.getX());
+                String y = Double.toString(p.getY());
+                f.append(x);
+                f.append(",");
+                f.append(y);
+                f.append("\n");
+            }
+
+        } catch (Exception errorObj) {
+            System.out.println("There was an error with the file");
+            errorObj.printStackTrace();
+        }
     }
 }

@@ -11,10 +11,12 @@ public class ColorMasking implements PixelFilter {
     private int colorVal, otherVal, threshold;
     public static ArrayList<Point> objectPixels;
 
+
     public ColorMasking(){
         colorVal = 200;
         otherVal = 0;
         threshold = 100;
+
         objectPixels = new ArrayList<>();
     }
 
@@ -30,10 +32,24 @@ public class ColorMasking implements PixelFilter {
                 int greenVal = green[i][j];
                 int blueVal = blue[i][j];
 
-                if(calculateDistance(redVal, greenVal, blueVal)<= threshold){
+                if(redCalculateDistance(redVal, greenVal, blueVal)<= 120) {
                     red[i][j] = 255;
                     blue[i][j] = 0;
                     green[i][j] = 0;
+
+                    objectPixels.add(new Point(i, j));
+                }
+                else if (blueCalculateDistance(redVal, greenVal, blueVal) <= 120) {
+                    red[i][j] = 0;
+                    blue[i][j] = 255;
+                    green[i][j] = 0;
+
+                    objectPixels.add(new Point(i, j));
+                }
+                else if (greenCalculateDistance(redVal, greenVal, blueVal) <= 150) {
+                    red[i][j] = 0;
+                    blue[i][j] = 0;
+                    green[i][j] = 255;
 
                     objectPixels.add(new Point(i, j));
                 }
@@ -53,9 +69,18 @@ public class ColorMasking implements PixelFilter {
     }
 
 
-    public double calculateDistance(int r, int g, int b){
-        return Math.sqrt( ((r-colorVal)*(r-colorVal)) + ((g-otherVal)*(g-otherVal))+ ((b-otherVal)*(b-otherVal)));
+    public double redCalculateDistance(int r, int g, int b){
+        return Math.sqrt( ((r-200)*(r-200)) + ((g)*(g))+ ((b)*(b)));
     }
+
+    public double blueCalculateDistance(int r, int g, int b){
+        return Math.sqrt( ((r)*(r)) + ((g)*(g))+ ((b-200)*(b-200)));
+    }
+
+    public double greenCalculateDistance(int r, int g, int b){
+        return Math.sqrt( ((r)*(r)) + ((g-200)*(g-200))+ ((b)*(b)));
+    }
+
 
     public Point calculateCenter(DImage image){
         int num = 0;
@@ -66,9 +91,10 @@ public class ColorMasking implements PixelFilter {
         short[][] red = image.getRedChannel();
         short[][] blue = image.getBlueChannel();
         short[][] green = image.getGreenChannel();
+
         for (int i = 0; i < red.length ; i++) {
             for (int j = 0; j < red[0].length; j++) {
-                if(red[i][j] == 255){
+                if(red[i][j] == 255 || blue[i][j] == 255 || green[i][j] == 255){
                     rowTotal+= i;
                     num++;
                     colTotal +=j;
@@ -94,4 +120,5 @@ public class ColorMasking implements PixelFilter {
 
     }
 }
+
 
