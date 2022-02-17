@@ -72,8 +72,9 @@ public class KMeansClustering extends PApplet implements PixelFilter, Drawable {
             // evaluate if done
             if (cluster1Movement == 0 && cluster2Movement == 0 && cluster3Movement == 0) done = true;
 
-            System.out.println(cluster1Center + ", " + cluster2Center + ", " + cluster3Center);
         } while (!done);
+
+        System.out.println(cluster1Center + ", " + cluster2Center + ", " + cluster3Center);
     }
 
     private void reCalculateClusters() {
